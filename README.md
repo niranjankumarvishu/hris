@@ -6,33 +6,57 @@ This project was developed as part of a Laravel Technical Assessment and provide
 
 ---
 
-## Requirements
+## Project Overview
+
+The HRIS module provides a complete web-based UI for managing:
+
+- Employees
+- Leave applications
+- Leave approvals and rejections
+- Leave remarks
+- Leave statistics
+- Leave balances
+- Attendance
+- Week offs
+- Sandwich-rule / ABWO attendance
+- Attendance summary API
+
+The application uses Laravel with Eloquent ORM, Form Request validation, database migrations, seeders, pagination, relationships, and database transactions where required.
+
+---
+
+# Requirements
 
 Before running the project, make sure the following are installed:
 
 - PHP 8.2 or higher
 - Composer
-- Node.js and npm
+- Node.js
+- npm
 - SQLite
-- Laravel
+- Git
 
-The project was developed using Laravel 13.
+The project was developed using:
+
+- Laravel 13
+- PHP 8.4
+- SQLite
 
 ---
 
-## Features
+# Features
 
-### 1. Employee Management
+## 1. Employee Management
 
-Admin can:
+The employee module provides:
 
-- Add employees
-- Edit employees
-- Delete employees
+- Add employee
+- Edit employee
+- Delete employee
 - View employee list
-- Paginate employee records
+- Paginated employee listing
 
-Employee fields:
+### Employee Fields
 
 - Employee Code
 - Name
@@ -43,16 +67,16 @@ Employee fields:
 
 ---
 
-### 2. Leave Management
+## 2. Leave Management
 
-Users can:
+Employees can:
 
 - Apply for leave
 - View leave history
 - Edit leave applications
 - View leave details
 
-Leave fields:
+### Leave Fields
 
 - Employee
 - Leave Type
@@ -60,14 +84,15 @@ Leave fields:
 - To Date
 - Reason
 - Status
+- Admin Remarks
 
-Supported leave types:
+### Leave Types
 
 - Paid
 - Sick
 - Casual
 
-Supported statuses:
+### Leave Statuses
 
 - Pending
 - Approved
@@ -75,35 +100,41 @@ Supported statuses:
 
 ---
 
-### 3. Admin Features
+## 3. Admin Features
 
-Admin can:
+Admin functionality includes:
 
 - Approve leave
 - Reject leave
 - Add remarks
 - View leave statistics
-- View status-wise leave statistics
 - View employee-wise leave statistics
+- View status-wise leave statistics
 - View leave balances
 
 ---
 
-## 4. Business Logic
+# Business Logic
 
-### Overlapping Leave Validation
+## 4.1 Overlapping Leave Validation
 
 An employee cannot apply for overlapping leave dates.
 
 The application checks existing Pending and Approved leave records before creating or updating a leave application.
 
-The current leave record is ignored when editing an existing application.
+When an existing leave application is edited, the current leave record is excluded from the overlap check.
 
----
+Example:
 
-### Sandwich Rule
+```text
+Existing Leave:
+10-Aug-2026 to 12-Aug-2026
 
-The system implements the following sandwich attendance rules.
+New Leave:
+11-Aug-2026 to 13-Aug-2026
+
+Result:
+Rejected because the dates overlap.
 
 #### Rule 1
 
